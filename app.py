@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
 
-# ✅ Set Page Config FIRST
+# Set Page Config FIRST
 st.set_page_config(page_title="Delivery Time Prediction App", page_icon=":truck:", layout="wide")
 
-# ✅ Custom CSS for Styling
+# Custom CSS for Styling
 st.markdown(
     """
     <style>
@@ -52,20 +52,18 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ✅ Display Title & Captions with Black Text
+# Display Title & Captions
 st.title("Delivery Time Prediction App")
-st.caption(
-    "This app predicts the delivery time for orders based on various factors such as product details, customer location, shipping method, and more."
-)
+st.caption("This app predicts the delivery time for orders based on various factors such as product details, customer location, shipping method, and more.")
 st.caption("By analyzing historical data, it helps businesses optimize their supply chain efficiency.")
 
-# ✅ Sidebar with Light Grey Background
+# Sidebar
 with st.sidebar:
     img = Image.open("./assets/supply_chain_optimisation.jpg")  
     st.image(img)
     st.header("Input Parameters")
 
-    # ✅ Primary Inputs
+    # Primary Inputs
     st.markdown("### Primary Parameters")
     product_category = st.selectbox("Product Category", ["Electronics", "Clothing", "Home & Kitchen", "Books", "Other"])
     customer_location = st.selectbox("Customer Location", ["Urban", "Suburban", "Rural"])
@@ -73,7 +71,7 @@ with st.sidebar:
     shipping_priority = st.selectbox("Shipping Priority", ["Normal", "High", "Urgent"])
     weather = st.selectbox("Weather Conditions", ["Sunny", "Rainy", "Snowy", "Stormy"])
 
-    # ✅ Additional Inputs
+    # Additional Inputs
     st.markdown("### Additional Parameters")
     package_weight = st.number_input("Package Weight (kg)", min_value=0.1, max_value=100.0, step=0.1, value=5.0)
     package_size = st.selectbox("Package Size", ["Small", "Medium", "Large"])
@@ -81,10 +79,10 @@ with st.sidebar:
     warehouse_proximity = st.radio("Warehouse Proximity", ["Yes", "No"])
     delivery_type = st.selectbox("Delivery Type", ["Residential", "Business"])
 
-    # ✅ Predict Button with Proper Visibility
+    # Predict Button
     submit = st.button("Predict Delivery Time")
 
-# ✅ Prediction Function
+# Prediction Function
 def predict_delivery_time():
     base_time = {"Standard": 3, "Express": 2, "Same-Day": 1}[shipping_method]
     if customer_location == "Rural":
@@ -111,7 +109,7 @@ def predict_delivery_time():
         base_time = min(base_time, 2)
     return max(1, base_time)
 
-# ✅ Display Output Only After Clicking Button
+# Display Output
 if submit:
     st.header("Output: Predicted Delivery Time")
     with st.spinner("Predicting delivery time..."):
@@ -134,7 +132,7 @@ if submit:
     }
     st.table(pd.DataFrame(list(input_data.items()), columns=["Parameter", "Value"]))
 
-    # ✅ Breakdown of Adjustments (Bar Chart using Seaborn)
+    # Breakdown of Adjustments (Bar Chart)
     st.markdown("### Delivery Time Breakdown")
     breakdown = {
         "Base Time": {"Standard": 3, "Express": 2, "Same-Day": 1}[shipping_method],
@@ -148,7 +146,7 @@ if submit:
     }
     breakdown_df = pd.DataFrame(list(breakdown.items()), columns=["Factor", "Adjustment (Days)"])
 
-    # Bar Chart using Seaborn
+    # Bar Chart
     st.markdown("#### Adjustments to Base Delivery Time")
     plt.figure(figsize=(10, 6))
     sns.barplot(x="Factor", y="Adjustment (Days)", data=breakdown_df, palette="viridis")
@@ -156,7 +154,7 @@ if submit:
     plt.title("Adjustments to Base Delivery Time")
     st.pyplot(plt)
 
-# ✅ Sample Dataset Section
+# Sample Dataset Section
 st.header("Sample Dataset")
 data = {
     "Product Category": ["Electronics", "Clothing", "Home & Kitchen"],
