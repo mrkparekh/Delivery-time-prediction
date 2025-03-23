@@ -1,1 +1,1 @@
-# Streamlit - Demo | Delivery-time-prediction
+# Streamlit - Demo App | Delivery-time-prediction
